@@ -1,0 +1,7 @@
+{
+  "name": "brinit",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
