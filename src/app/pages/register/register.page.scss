@@ -1,0 +1,26 @@
+ion-button[color="dark"] {
+  text-transform: initial;
+  opacity: 0.5;
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-between;
+  gap: 15px;
+}
+
+ion-list {
+  margin-top: 10px;
+  ion-item {
+    margin-bottom: 10px;
+  }
+}
+
+.register-button {
+  margin-top: auto;
+}
+
+.register-text {
+  margin-top: auto;
+}
