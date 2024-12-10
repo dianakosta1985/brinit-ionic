@@ -65,6 +65,16 @@ ion-card {
     .info-row {
       margin-bottom: 8px;
 
+      .price-tip-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .separator {
+          color: var(--ion-color-medium);
+        }
+      }
+
       ion-text {
         font-size: 14px;
         color: var(--ion-color-medium);
@@ -72,17 +82,6 @@ ion-card {
         b {
           color: var(--ion-color-dark);
           margin-left: 4px;
-        }
-
-        &.price-tip {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-
-          .tip-separator {
-            color: var(--ion-color-medium);
-            margin: 0 4px;
-          }
         }
       }
     }
