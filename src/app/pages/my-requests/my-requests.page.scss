@@ -1,0 +1,47 @@
+ion-fab {
+  margin-bottom: 16px;
+  margin-right: 16px;
+}
+
+ion-fab-button {
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+ion-tooltip {
+  --background: var(--ion-color-dark);
+  --color: white;
+}
+
+// // New header styles
+// ion-header {
+//   ion-toolbar {
+//     --background: linear-gradient(135deg, #4e54c8, #8f94fb);
+//     --color: white;
+//     --border-color: transparent;
+
+//     ion-title {
+//       font-size: 1.2rem;
+//       font-weight: 600;
+//       letter-spacing: 0.4px;
+//     }
+
+//     ion-buttons {
+//       --color: white;
+//     }
+//   }
+
+//   &::after {
+//     display: none;
+//   }
+// }
+
+// Optional: Add a subtle shadow to the header
+ion-header.header-md::after {
+  display: none;
+}
+
+ion-toolbar {
+  --min-height: 60px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}

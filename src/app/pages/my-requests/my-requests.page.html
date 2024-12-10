@@ -1,17 +1,19 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Myrequests</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My requests to brinit</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">my-requests</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-request-card *ngFor="let request of requestData" [request]="request">
+  </app-request-card>
 
-  <div id="container">
-    <p>content</p>
-  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button id="add-request-btn" class="modern-blue-fab">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

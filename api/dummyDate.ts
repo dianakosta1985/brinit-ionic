@@ -1,0 +1,81 @@
+const requestsData = [
+  {
+    id: 1,
+    status: 'new',
+    name: 'Coffee Ellite',
+    price: 20,
+    category: 'Food',
+    currency: 'ILS',
+    tipPercentage: 5,
+    quantity: 2,
+    origin: 'Israel',
+    delivery: 'California, USA',
+    deliveryDate: '2024-12-15',
+    image:
+      'https://www.instacart.com/image-server/466x466/filters:fill(FFF,true):format(webp)/www.instacart.com/assets/domains/product-image/file/large_993f9713-b9a6-4cb9-9eea-18b9177f78bd.jpeg',
+  },
+  {
+    id: 2,
+    status: 'rejected',
+    name: 'Chips Lays',
+    category: 'Food',
+    currency: 'USD',
+    price: 5,
+    tipPercentage: 10,
+    quantity: 5,
+    origin: 'USA',
+    delivery: 'Germany',
+    deliveryDate: '2024-12-15',
+    image:
+      'https://i5.walmartimages.com/asr/3b945e17-b0f0-4e88-9ff3-e21505667c0c.96d85eeb24d9e2e7245bb0b10380e872.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
+  },
+  {
+    id: 3,
+    status: 'pending',
+    name: 'Hamsa',
+    category: 'Souvenir',
+    currency: 'ILS',
+    price: 50,
+    tipPercentage: 5,
+    quantity: 2,
+    origin: 'Israel',
+    delivery: 'California, USA',
+    deliveryDate: '2024-12-15',
+    image:
+      'https://i.etsystatic.com/38348901/r/il/cc0aee/5573310100/il_794xN.5573310100_37mv.jpg',
+  },
+  {
+    id: 4,
+    status: 'approved',
+    name: 'Tequila',
+    category: 'Alcohol',
+    currency: 'Pessoas',
+    price: 100,
+    tipPercentage: 15,
+    quantity: 1,
+    origin: 'Mexico',
+    delivery: 'ILS',
+    deliveryDate: '2024-12-15',
+    image:
+      'https://vyno.ca/cdn/shop/products/patron-anejo-tequila-396965.jpg?v=1666495529&width=500',
+  },
+  {
+    id: 5,
+    name: 'Maple Syrup',
+    status: 'new',
+    category: 'Food',
+    currency: 'CAD',
+    price: 10,
+    tipPercentage: 25,
+    quantity: 3,
+    origin: 'Canada',
+    delivery: 'New York, USA',
+    deliveryDate: '2024-12-15',
+    image:
+      'https://i0.wp.com/springfieldfarmorganics.ca/wp-content/uploads/2024/04/IMG_5939-e1712342018551.jpg?resize=600%2C828&ssl=1',
+  },
+];
+
+export const date = {
+  requestsData,
+};

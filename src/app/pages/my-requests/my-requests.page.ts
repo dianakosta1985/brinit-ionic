@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { date } from '../../../../api/dummyDate';
+import { Request } from '../../../../utiles/types';
 
 @Component({
   selector: 'app-my-requests',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-requests.page.scss'],
 })
 export class MyRequestsPage implements OnInit {
+  @Input() requestData: Request[] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.requestData = [...(date.requestsData as Request[])];
   }
-
 }

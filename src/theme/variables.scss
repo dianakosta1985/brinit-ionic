@@ -1,2 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap");
+
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+// Define Primary Color (Purple)
+:root {
+  /* Primary Colors */
+  --ion-toolbar-background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  --ion-toolbar-color: #ffffff;
+  --ion-toolbar-border-color: transparent;
+  --ion-toolbar-min-height: 60px;
+  --ion-toolbar-padding-top: 8px;
+  --ion-toolbar-padding-bottom: 8px;
+  --ion-color-primary: #4e54c8; /* Deep Purple */
+  --ion-color-primary-rgb: 78, 84, 200;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #4349b0; /* Darker Shade */
+  --ion-color-primary-tint: #8f94fb; /* Light Purple Tint */
+}
+
+// Typography
+:root {
+  --ion-font-family: "Poppins", sans-serif;
+  --ion-text-color: #333333;
+  --ion-font-size-base: 16px;
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Font sizes */
+  --font-size-small: 14px;
+  --font-size-base: 16px;
+  --font-size-large: 20px;
+  --font-size-title: 24px;
+}

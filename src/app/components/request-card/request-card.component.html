@@ -1,0 +1,99 @@
+<ion-card>
+  <ion-button
+    fill="clear"
+    color="danger"
+    class="delete-button"
+    (click)="deleteItem()"
+  >
+    <ion-icon slot="icon-only" name="trash"></ion-icon>
+  </ion-button>
+
+  <ion-grid>
+    <ion-row>
+      <!-- Left Column - Image -->
+      <ion-col size="4" class="image-col">
+        <div class="image-container">
+          <ion-img src="{{ request.image }}" alt="{{ request.name }}"></ion-img>
+        </div>
+      </ion-col>
+
+      <!-- Right Column - Content -->
+      <ion-col size="8" class="content-col">
+        <ion-card-header>
+          <ion-card-title class="request-name">{{
+            request.name
+          }}</ion-card-title>
+          <div class="delivery-date">
+            <ion-icon
+              *ngIf="request.status === 'new'"
+              name="add-circle-outline"
+              color="primary"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="request.status === 'pending'"
+              name="hourglass-outline"
+              color="warning"
+            ></ion-icon>
+
+            <ion-icon
+              *ngIf="request.status === 'approved'"
+              name="checkmark-circle-outline"
+              color="success"
+            ></ion-icon>
+
+            <ion-icon
+              *ngIf="request.status === 'rejected'"
+              name="close-circle-outline"
+              color="danger"
+            ></ion-icon>
+            <ion-text>
+              Delivery Date:
+              <b style="color: var(--ion-color-warning)">{{
+                request.deliveryDate
+              }}</b>
+            </ion-text>
+          </div>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-row class="info-row">
+            <ion-col size="6">
+              <ion-text
+                >Price: <b>{{ request.price }}</b></ion-text
+              >
+            </ion-col>
+            <ion-col size="6">
+              <ion-text
+                >Tip: <b>{{ request.tipPercentage }}</b></ion-text
+              >
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="info-row">
+            <ion-col size="12">
+              <ion-text
+                >Quantity: <b>{{ request.quantity }}</b></ion-text
+              >
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="info-row">
+            <ion-col size="12">
+              <ion-text
+                >Origin From: <b>{{ request.origin }}</b></ion-text
+              >
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="info-row">
+            <ion-col size="12">
+              <ion-text
+                >Delivery To: <b>{{ request.delivery }}</b></ion-text
+              >
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
