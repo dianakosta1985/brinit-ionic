@@ -11,12 +11,27 @@ ion-card {
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    margin-bottom: 16px;
+
+    ion-img {
+      width: 100%;
+      max-width: 300px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 16px;
+    }
+  }
+}
+
+// Media query for desktop
+@media (min-width: 768px) {
+  .image-col .image-container {
+    margin-bottom: 0;
 
     ion-img {
       width: 220px;
       height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
     }
   }
 }

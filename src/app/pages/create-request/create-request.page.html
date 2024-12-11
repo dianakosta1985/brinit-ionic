@@ -11,9 +11,9 @@
   <form [formGroup]="requestForm">
     <ion-card>
       <ion-grid>
-        <ion-row>
-          <!-- Left Column - Image Upload -->
-          <ion-col size="4" class="image-col">
+        <ion-row class="ion-flex-wrap">
+          <!-- Image Upload - Full width on mobile, 4 columns on desktop -->
+          <ion-col size="12" size-md="4" class="image-col">
             <div class="image-container">
               <ion-img [src]="'assets/images/add-image.svg'"></ion-img>
               <ion-button fill="clear" (click)="uploadImage()">
@@ -23,8 +23,8 @@
             </div>
           </ion-col>
 
-          <!-- Right Column - Form Fields -->
-          <ion-col size="8" class="content-col">
+          <!-- Form Fields - Full width on mobile, 8 columns on desktop -->
+          <ion-col size="12" size-md="8" class="content-col">
             <ion-card-content>
               <ion-item>
                 <ion-label position="floating">Item Name</ion-label>
