@@ -1,10 +1,10 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu *ngIf="isLoggedIn" contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Brinit</ion-list-header>
-          <ion-note>bring overseas to your home</ion-note>
+          <ion-list-header>{{ "Brinit" | uppercase }}</ion-list-header>
+          <ion-note>{{ "Bring overseas to your home" | uppercase }}</ion-note>
 
           <ion-menu-toggle
             auto-hide="false"

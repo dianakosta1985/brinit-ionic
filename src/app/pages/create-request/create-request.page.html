@@ -1,0 +1,182 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pages/my-requests"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create New Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="requestForm">
+    <ion-card>
+      <ion-grid>
+        <ion-row>
+          <!-- Left Column - Image Upload -->
+          <ion-col size="4" class="image-col">
+            <div class="image-container">
+              <ion-img [src]="'assets/images/add-image.svg'"></ion-img>
+              <ion-button fill="clear" (click)="uploadImage()">
+                <ion-icon name="camera-outline"></ion-icon>
+                Upload Image
+              </ion-button>
+            </div>
+          </ion-col>
+
+          <!-- Right Column - Form Fields -->
+          <ion-col size="8" class="content-col">
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Item Name</ion-label>
+                <ion-input formControlName="name" type="text"></ion-input>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('name')?.touched && requestForm.get('name')?.errors?.['required']"
+                >
+                  Name is required
+                </ion-note>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Category</ion-label>
+                <ion-select formControlName="category">
+                  <ion-select-option value="electronics"
+                    >Electronics</ion-select-option
+                  >
+                  <ion-select-option value="clothing"
+                    >Clothing</ion-select-option
+                  >
+                  <ion-select-option value="food">Food</ion-select-option>
+                  <!-- Add more categories -->
+                </ion-select>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('category')?.touched && requestForm.get('category')?.errors?.['required']"
+                >
+                  Category is required
+                </ion-note>
+              </ion-item>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label position="floating">Price</ion-label>
+                    <ion-input
+                      formControlName="price"
+                      type="number"
+                    ></ion-input>
+                    <ion-note
+                      slot="error"
+                      *ngIf="requestForm.get('price')?.touched && requestForm.get('price')?.errors?.['required']"
+                    >
+                      Price is required
+                    </ion-note>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label position="floating">Tip %</ion-label>
+                    <ion-select formControlName="tipPercentage">
+                      <ion-select-option value="5">5%</ion-select-option>
+                      <ion-select-option value="10">10%</ion-select-option>
+                      <ion-select-option value="15">15%</ion-select-option>
+                      <ion-select-option value="25">25%</ion-select-option>
+                    </ion-select>
+                    <ion-note
+                      slot="error"
+                      *ngIf="requestForm.get('tipPercentage')?.touched && requestForm.get('tipPercentage')?.errors?.['required']"
+                    >
+                      Tip is required
+                    </ion-note>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-item>
+                <ion-label position="floating">Quantity (1-5)</ion-label>
+                <ion-input
+                  formControlName="quantity"
+                  type="number"
+                  min="1"
+                  max="5"
+                  [attr.maxlength]="1"
+                ></ion-input>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('quantity')?.touched && requestForm.get('quantity')?.errors?.['required']"
+                >
+                  Quantity is required
+                </ion-note>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('quantity')?.touched && (requestForm.get('quantity')?.errors?.['min'] || requestForm.get('quantity')?.errors?.['max'])"
+                >
+                  Quantity must be between 1 and 5
+                </ion-note>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Item origin From</ion-label>
+                <ion-input formControlName="origin" type="text"></ion-input>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('origin')?.touched && requestForm.get('origin')?.errors?.['required']"
+                >
+                  Origin is required
+                </ion-note>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Delivery To</ion-label>
+                <ion-input formControlName="delivery" type="text"></ion-input>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('delivery')?.touched && requestForm.get('delivery')?.errors?.['required']"
+                >
+                  Delivery location is required
+                </ion-note>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Delivery Date</ion-label>
+                <div class="date-container">
+                  <ion-datetime-button
+                    datetime="datetime"
+                  ></ion-datetime-button>
+                </div>
+
+                <ion-modal [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime
+                      id="datetime"
+                      formControlName="deliveryDate"
+                      [min]="minDate"
+                      presentation="date"
+                      showDefaultButtons="true"
+                    ></ion-datetime>
+                  </ng-template>
+                </ion-modal>
+
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('deliveryDate')?.touched && requestForm.get('deliveryDate')?.errors?.['required']"
+                >
+                  Delivery date is required
+                </ion-note>
+              </ion-item>
+
+              <ion-button
+                expand="block"
+                class="create-button"
+                (click)="createRequest()"
+                [disabled]="!requestForm.valid"
+              >
+                Create Request
+              </ion-button>
+            </ion-card-content>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </form>
+</ion-content>

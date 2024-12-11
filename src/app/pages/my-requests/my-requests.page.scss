@@ -1,3 +1,7 @@
+ion-content {
+  --background: #faf9f6;
+}
+
 ion-fab {
   margin-bottom: 16px;
   margin-right: 16px;
@@ -11,29 +15,6 @@ ion-tooltip {
   --background: var(--ion-color-dark);
   --color: white;
 }
-
-// // New header styles
-// ion-header {
-//   ion-toolbar {
-//     --background: linear-gradient(135deg, #4e54c8, #8f94fb);
-//     --color: white;
-//     --border-color: transparent;
-
-//     ion-title {
-//       font-size: 1.2rem;
-//       font-weight: 600;
-//       letter-spacing: 0.4px;
-//     }
-
-//     ion-buttons {
-//       --color: white;
-//     }
-//   }
-
-//   &::after {
-//     display: none;
-//   }
-// }
 
 // Optional: Add a subtle shadow to the header
 ion-header.header-md::after {

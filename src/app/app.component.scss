@@ -79,7 +79,7 @@ ion-menu ion-note {
   margin-bottom: 20px;
 }
 
-ion-menu.ios ion-item {
+ion-menu.md ion-item {
   --padding-start: 16px;
   --padding-end: 16px;
   --min-height: 50px;
@@ -117,4 +117,8 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+}
+
+ion-split-pane {
+  --border: 1px solid #e0e0e0;
 }

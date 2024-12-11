@@ -1,24 +1,64 @@
 <ion-content [fullscreen]="true">
   <div class="flex-center">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Login</ion-card-title>
-      </ion-card-header>
+    <form [formGroup]="form">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Login</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content>
-        <ion-item>
-          <ion-input type="email" placeholder="Email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="password" placeholder="Password"></ion-input>
-        </ion-item>
-        <ion-button class="login-button">Login</ion-button>
-        <ion-button fill="clear" color="dark"> Forgot password? </ion-button>
+        <ion-card-content>
+          <ion-item
+            [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+          >
+            <ion-input
+              type="email"
+              placeholder="Email"
+              formControlName="email"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']"
+            >Email is required</ion-text
+          >
+          <ion-text
+            color="danger"
+            *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']"
+            >Please enter a valid email.</ion-text
+          >
+          <ion-item
+            [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+          >
+            <ion-input
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"
+            >Password is required</ion-text
+          >
+          <ion-text
+            color="danger"
+            *ngIf="form.get('password')?.errors?.['pattern'] && form.get('password')?.touched"
+          >
+            Password must contain at least one letter and one number.
+          </ion-text>
+          <ion-button
+            class="login-button"
+            (click)="login()"
+            [disabled]="form.invalid"
+            >Login</ion-button
+          >
+          <ion-button fill="clear" color="dark"> Forgot password? </ion-button>
 
-        <ion-text class="signup-text">
-          <p>Don't have an account? <a href="/register">Register</a></p>
-        </ion-text>
-      </ion-card-content>
-    </ion-card>
+          <ion-text class="signup-text">
+            <p>Don't have an account? <a href="/register">Register</a></p>
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </form>
   </div>
 </ion-content>

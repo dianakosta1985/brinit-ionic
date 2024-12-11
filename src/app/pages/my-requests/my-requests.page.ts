@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { date } from '../../../../api/dummyDate';
 import { Request } from '../../../../utiles/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-requests',
@@ -10,9 +11,13 @@ import { Request } from '../../../../utiles/types';
 export class MyRequestsPage implements OnInit {
   @Input() requestData: Request[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.requestData = [...(date.requestsData as Request[])];
+  }
+
+  goToCreateRequest() {
+    this.router.navigate(['/create-request']);
   }
 }

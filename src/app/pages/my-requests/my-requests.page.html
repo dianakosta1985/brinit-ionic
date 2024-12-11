@@ -12,7 +12,11 @@
   </app-request-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button id="add-request-btn" class="modern-blue-fab">
+    <ion-fab-button
+      id="add-request-btn"
+      class="modern-blue-fab"
+      (click)="goToCreateRequest()"
+    >
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

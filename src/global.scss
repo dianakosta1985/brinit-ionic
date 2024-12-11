@@ -52,6 +52,13 @@ h3 {
   letter-spacing: 0.02em;
 }
 
+.invalid ion-input {
+  --background: #fff5f5; /* Light red background */
+  --color: #e74c3c; /* Red text */
+  --border-color: #e74c3c; /* Red border */
+  //border-bottom: 1px solid #e74c3c;
+}
+
 ion-button {
   font-family: var(--ion-font-family);
   font-weight: var(--font-weight-medium);
