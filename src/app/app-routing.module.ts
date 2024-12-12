@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'loader',
     pathMatch: 'full',
   },
   {
@@ -45,7 +45,10 @@ const routes: Routes = [
   },
   {
     path: 'create-request',
-    loadChildren: () => import('./pages/create-request/create-request.module').then( m => m.CreateRequestPageModule)
+    loadChildren: () =>
+      import('./pages/create-request/create-request.module').then(
+        (m) => m.CreateRequestPageModule
+      ),
   },
 ];
 
