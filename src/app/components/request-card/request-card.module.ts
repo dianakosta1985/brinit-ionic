@@ -1,13 +1,12 @@
-// import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-// import { IonicModule } from '@ionic/angular';
+import { RequestCardComponent } from './request-card.component';
+import { IonicModule } from '@ionic/angular';
 
-// import { RequestCardComponent } from './request-card.component';
-
-// @NgModule({
-//   imports: [CommonModule, FormsModule, IonicModule],
-//   declarations: [RequestCardComponent],
-// })
-// export class MyOffersPageModule {}
+@NgModule({
+  imports: [CommonModule, IonicModule],
+  exports: [RequestCardComponent],
+  declarations: [RequestCardComponent],
+})
+export class RequestCardModule {}

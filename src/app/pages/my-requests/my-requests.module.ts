@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MyRequestsPageRoutingModule } from './my-requests-routing.module';
 
 import { MyRequestsPage } from './my-requests.page';
-import { RequestCardComponent } from 'src/app/components/request-card/request-card.component';
+import { RequestCardModule } from 'src/app/components/request-card/request-card.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,8 @@ import { RequestCardComponent } from 'src/app/components/request-card/request-ca
     FormsModule,
     IonicModule,
     MyRequestsPageRoutingModule,
+    RequestCardModule,
   ],
-  declarations: [MyRequestsPage, RequestCardComponent],
+  declarations: [MyRequestsPage],
 })
 export class MyRequestsPageModule {}
