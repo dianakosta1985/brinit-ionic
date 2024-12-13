@@ -7,13 +7,112 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">my-offers</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <div id="container">
-    <p>my-offers</p>
+<ion-content class="flex-center" [fullscreen]="true">
+  <!-- Map Background Image -->
+  <div class="map-bg">
+    <img
+      src="https://cdn.hswstatic.com/gif/maps.jpg"
+      height="400px"
+      width="100%"
+      alt="Map"
+    />
+  </div>
+
+  <!-- Country Dropdowns and States -->
+  <div class="dropdowns-container">
+    <!-- From Country Dropdown -->
+    <ion-list>
+      <ion-item>
+        <ion-select
+          label="From Country"
+          label-placement="floating"
+          [(ngModel)]="offer!.fromCountry"
+          (ionChange)="onCountryChange('from')"
+          interface="popover"
+        >
+          <ion-select-option
+            *ngFor="let country of countries"
+            [value]="country.code"
+          >
+            <ion-avatar slot="start">
+              <img
+                [src]="'assets/flags/' + country.code + '.png'"
+                alt="{{ country.name }}"
+              />
+            </ion-avatar>
+            {{ country.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- From State Dropdown -->
+      <ion-item *ngIf="fromCountryStates.length">
+        <ion-select
+          label="From State"
+          label-placement="floating"
+          [(ngModel)]="offer!.fromState"
+          interface="popover"
+        >
+          <ion-select-option
+            *ngFor="let state of fromCountryStates"
+            [value]="state"
+          >
+            {{ state.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- To Country Dropdown -->
+      <ion-item>
+        <ion-select
+          label="To Country"
+          label-placement="floating"
+          [(ngModel)]="offer!.toCountry"
+          (ionChange)="onCountryChange('to')"
+          interface="popover"
+        >
+          <ion-select-option
+            *ngFor="let country of countries"
+            [value]="country.code"
+          >
+            <ion-avatar slot="start">
+              <img
+                [src]="'assets/flags/' + country.code + '.png'"
+                alt="{{ country.name }}"
+              />
+            </ion-avatar>
+            {{ country.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- To State Dropdown -->
+      <ion-item *ngIf="toCountryStates.length">
+        <ion-select
+          label="To State"
+          label-placement="floating"
+          [(ngModel)]="offer!.toState"
+          interface="popover"
+        >
+          <ion-select-option
+            *ngFor="let state of toCountryStates"
+            [value]="state"
+          >
+            {{ state.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Search Button -->
+      <ion-button expand="full" (click)="searchRequest()">Search</ion-button>
+    </ion-list>
+  </div>
+
+  <!-- List of app-request-cards (will be shown after search) -->
+  <div *ngIf="showResults">
+    <!-- <app-request-card
+      *ngFor="let request of requests"
+      [request]="request"
+    ></app-request-card> -->
   </div>
 </ion-content>

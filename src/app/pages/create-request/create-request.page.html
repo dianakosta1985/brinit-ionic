@@ -25,10 +25,14 @@
 
           <!-- Form Fields - Full width on mobile, 8 columns on desktop -->
           <ion-col size="12" size-md="8" class="content-col">
-            <ion-card-content>
+            <ion-list>
               <ion-item>
-                <ion-label position="floating">Item Name</ion-label>
-                <ion-input formControlName="name" type="text"></ion-input>
+                <ion-input
+                  label="Item Name"
+                  formControlName="name"
+                  label-placement="floating"
+                  type="text"
+                ></ion-input>
                 <ion-note
                   slot="error"
                   *ngIf="requestForm.get('name')?.touched && requestForm.get('name')?.errors?.['required']"
@@ -38,8 +42,11 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="floating">Category</ion-label>
-                <ion-select formControlName="category">
+                <ion-select
+                  label="Category"
+                  formControlName="category"
+                  label-placement="floating"
+                >
                   <ion-select-option value="electronics"
                     >Electronics</ion-select-option
                   >
@@ -60,10 +67,11 @@
               <ion-row>
                 <ion-col size="6">
                   <ion-item>
-                    <ion-label position="floating">Price</ion-label>
                     <ion-input
+                      label="Price"
                       formControlName="price"
                       type="number"
+                      label-placement="floating"
                     ></ion-input>
                     <ion-note
                       slot="error"
@@ -75,8 +83,11 @@
                 </ion-col>
                 <ion-col size="6">
                   <ion-item>
-                    <ion-label position="floating">Tip %</ion-label>
-                    <ion-select formControlName="tipPercentage">
+                    <ion-select
+                      label="Tip %"
+                      formControlName="tipPercentage"
+                      label-placement="floating"
+                    >
                       <ion-select-option value="5">5%</ion-select-option>
                       <ion-select-option value="10">10%</ion-select-option>
                       <ion-select-option value="15">15%</ion-select-option>
@@ -93,8 +104,8 @@
               </ion-row>
 
               <ion-item>
-                <ion-label position="floating">Quantity (1-5)</ion-label>
                 <ion-input
+                  label="Quantity (1-5)"
                   formControlName="quantity"
                   type="number"
                   min="1"
@@ -116,8 +127,12 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="floating">Item origin From</ion-label>
-                <ion-input formControlName="origin" type="text"></ion-input>
+                <ion-input
+                  label="Item origin From"
+                  formControlName="origin"
+                  type="text"
+                  label-placement="floating"
+                ></ion-input>
                 <ion-note
                   slot="error"
                   *ngIf="requestForm.get('origin')?.touched && requestForm.get('origin')?.errors?.['required']"
@@ -127,8 +142,11 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="floating">Delivery To</ion-label>
-                <ion-input formControlName="delivery" type="text"></ion-input>
+                <ion-input
+                  label="Delivery To"
+                  formControlName="delivery"
+                  type="text"
+                ></ion-input>
                 <ion-note
                   slot="error"
                   *ngIf="requestForm.get('delivery')?.touched && requestForm.get('delivery')?.errors?.['required']"
@@ -138,7 +156,7 @@
               </ion-item>
 
               <ion-item>
-                <ion-label position="stacked">Delivery Date</ion-label>
+                <ion-label>Delivery Date</ion-label>
                 <div class="date-container">
                   <ion-datetime-button
                     datetime="datetime"
@@ -173,7 +191,7 @@
               >
                 Create Request
               </ion-button>
-            </ion-card-content>
+            </ion-list>
           </ion-col>
         </ion-row>
       </ion-grid>

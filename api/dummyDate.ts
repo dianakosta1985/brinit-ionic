@@ -76,6 +76,40 @@ const requestsData = [
   },
 ];
 
-export const date = {
+const countries = [
+  { name: 'USA', code: 'US' },
+  { name: 'Canada', code: 'CA' },
+  { name: 'Germany', code: 'DE' },
+  { name: 'India', code: 'IN' },
+  // Add more countries
+];
+
+// States for each country
+const countryStates: any = {
+  US: [
+    { name: 'California', code: 'CA' },
+    { name: 'Texas', code: 'TX' },
+    { name: 'New York', code: 'NY' },
+  ],
+  CA: [
+    { name: 'Ontario', code: 'ON' },
+    { name: 'Quebec', code: 'QC' },
+    { name: 'British Columbia', code: 'BC' },
+  ],
+  DE: [
+    { name: 'Bavaria', code: 'BY' },
+    { name: 'Berlin', code: 'BE' },
+    { name: 'Hamburg', code: 'HH' },
+  ],
+  IN: [
+    { name: 'Delhi', code: 'DL' },
+    { name: 'Maharashtra', code: 'MH' },
+    { name: 'Karnataka', code: 'KA' },
+  ],
+};
+
+export const data = {
   requestsData,
+  countries,
+  countryStates,
 };

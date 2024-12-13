@@ -9,12 +9,7 @@ import { MyOffersPageRoutingModule } from './my-offers-routing.module';
 import { MyOffersPage } from './my-offers.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MyOffersPageRoutingModule
-  ],
-  declarations: [MyOffersPage]
+  imports: [CommonModule, FormsModule, IonicModule, MyOffersPageRoutingModule],
+  declarations: [MyOffersPage],
 })
 export class MyOffersPageModule {}

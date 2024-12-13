@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { date } from '../../../../api/dummyDate';
+import { data } from '../../../../api/dummyDate';
 import { Request } from '../../../../utiles/types';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ export class MyRequestsPage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.requestData = [...(date.requestsData as Request[])];
+    this.requestData = [...(data.requestsData as Request[])];
   }
 
   goToCreateRequest() {

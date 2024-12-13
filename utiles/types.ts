@@ -1,4 +1,11 @@
 type RequestStatus = 'new' | 'pending' | 'approved' | 'rejected';
+interface State {
+  name: string;
+  code: string;
+}
+export interface CountryStates {
+  [key: string]: State[];
+}
 export interface Request {
   id: number;
   status: RequestStatus;
@@ -12,4 +19,11 @@ export interface Request {
   delivery: string;
   deliveryDate: string;
   image: string;
+}
+
+export interface Offer {
+  fromCountry: string;
+  toCountry: string;
+  fromState: string;
+  toState: string;
 }
