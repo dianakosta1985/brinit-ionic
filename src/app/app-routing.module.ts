@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       import('./pages/my-requests/my-requests.module').then(
         (m) => m.MyRequestsPageModule
       ),
+    canLoad: [AuthGuard],
   },
   {
     path: 'pages/my-offers',
@@ -20,6 +22,7 @@ const routes: Routes = [
       import('./pages/my-offers/my-offers.module').then(
         (m) => m.MyOffersPageModule
       ),
+    canLoad: [AuthGuard],
   },
   // {
   //   path: 'folder/:id',
@@ -49,6 +52,7 @@ const routes: Routes = [
       import('./pages/create-request/create-request.module').then(
         (m) => m.CreateRequestPageModule
       ),
+    canLoad: [AuthGuard],
   },
 ];
 

@@ -52,7 +52,12 @@
             [disabled]="form.invalid"
             >Login</ion-button
           >
-          <ion-button fill="clear" color="dark" (click)="forgotEmailPassword()">
+          <ion-button
+            fill="clear"
+            color="dark"
+            (click)="forgotEmailPassword()"
+            [disabled]="!form.get('email')?.value"
+          >
             Forgot password?
           </ion-button>
 
