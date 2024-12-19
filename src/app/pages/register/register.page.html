@@ -1,71 +1,220 @@
 <ion-content [fullscreen]="true">
-  <ion-card class="register-card">
-    <ion-card-header>
-      <ion-card-title>Account Registration</ion-card-title>
-    </ion-card-header>
+  <form [formGroup]="registerForm.form">
+    <ion-card class="register-card">
+      <ion-card-header>
+        <ion-card-title>Account Registration</ion-card-title>
+      </ion-card-header>
 
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-input type="text" placeholder="Name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="email" placeholder="Email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="password" placeholder="Password"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="password" placeholder="Confirm Password"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="Phone"></ion-input>
-        </ion-item>
-      </ion-list>
-      <!-- <ion-button class="register-button">Register</ion-button>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="name"
+              placeholder="Name"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('name')?.touched && registerForm.form.get('name')?.errors?.['required']"
+          >
+            Name is required.
+          </ion-text>
 
-      <ion-text class="register-text">
-        <p>Don't have an account? <a href="/login">Register</a></p>
-      </ion-text> -->
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="login-card">
-    <ion-card-header>
-      <ion-card-title>Address</ion-card-title>
-    </ion-card-header>
+          <ion-item>
+            <ion-input
+              type="email"
+              formControlName="email"
+              placeholder="Email"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('email')?.touched && registerForm.form.get('email')?.errors?.['required']"
+          >
+            Email is required.
+          </ion-text>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('email')?.touched && registerForm.form.get('email')?.errors?.['email']"
+          >
+            Please enter a valid email.
+          </ion-text>
 
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-input type="text" placeholder="Address"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" placeholder="Number"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="City"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="Country"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="State"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="text" placeholder="Zip Code"></ion-input>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+          <ion-item>
+            <ion-input
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('password')?.touched && registerForm.form.get('password')?.errors?.['required']"
+          >
+            Password is required.
+          </ion-text>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('password')?.touched && registerForm.form.get('password')?.errors?.['pattern']"
+          >
+            Password must be at least 8 characters long and include a number.
+          </ion-text>
 
-  <ion-card class="login-card">
-    <ion-card-content>
-      <ion-button class="register-button" (click)="register()"
-        >Register</ion-button
-      >
-      <ion-text class="register-text">
-        <p>Already have an account? <a href="/login">Login</a></p>
-      </ion-text></ion-card-content
-    >
-  </ion-card>
+          <ion-item>
+            <ion-input
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Confirm Password"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('confirmPassword')?.touched && registerForm.form.errors?.['passwordMismatch']"
+          >
+            Passwords do not match.
+          </ion-text>
+
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="phone"
+              placeholder="Phone"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('phone')?.touched && registerForm.form.get('phone')?.errors?.['pattern']"
+          >
+            Enter a valid phone number.
+          </ion-text>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!--adddress-->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Address</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <!-- Address -->
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="address"
+              placeholder="Address"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('address')?.touched && registerForm.form.get('address')?.errors?.['required']"
+          >
+            Address is required.
+          </ion-text>
+
+          <!-- Number
+          <ion-item>
+            <ion-input
+              type="number"
+              formControlName="number"
+              placeholder="Number"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('number')?.touched && registerForm.form.get('number')?.errors?.['required']"
+          >
+            Number is required.
+          </ion-text>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('number')?.touched && registerForm.form.get('number')?.errors?.['pattern']"
+          >
+            Only numeric values are allowed.
+          </ion-text>
+
+            --City --
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="city"
+              placeholder="City"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('city')?.touched && registerForm.form.get('city')?.errors?.['required']"
+          >
+            City is required.
+          </ion-text> -->
+
+          <!-- Country -->
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="country"
+              placeholder="Country"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('country')?.touched && registerForm.form.get('country')?.errors?.['required']"
+          >
+            Country is required.
+          </ion-text>
+
+          <!-- State -->
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="state"
+              placeholder="State"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('state')?.touched && registerForm.form.get('state')?.errors?.['required']"
+          >
+            State is required.
+          </ion-text>
+
+          <!-- Zip Code -->
+          <ion-item>
+            <ion-input
+              type="text"
+              formControlName="zipCode"
+              placeholder="Zip Code"
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('zipCode')?.touched && registerForm.form.get('zipCode')?.errors?.['required']"
+          >
+            Zip Code is required.
+          </ion-text>
+          <ion-text
+            color="danger"
+            *ngIf="registerForm.form.get('zipCode')?.touched && registerForm.form.get('zipCode')?.errors?.['pattern']"
+          >
+            Zip Code must be 5-6 digits.
+          </ion-text>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!--submit-->
+    <ion-card>
+      <ion-card-content>
+        <ion-button
+          (click)="register()"
+          class="register-button"
+          [disabled]="registerForm.form.invalid"
+        >
+          Register
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>

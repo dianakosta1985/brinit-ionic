@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user/User';
+import { UserRegister } from 'src/app/model/user/UserRegister';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor() {}
+
+  register(userRegister: UserRegister): Observable<void> {
+    return new Observable<void>((observer) => {
+      setTimeout(() => {
+        if (userRegister.email === 'error@gmail.com') {
+          observer.error({ message: 'Email is already registerd' });
+        }
+        observer.next();
+        observer.complete();
+      }, 3000);
+    });
+  }
 
   recoverEmailPassword(email: string): Observable<void> {
     return new Observable<void>((observer) => {
