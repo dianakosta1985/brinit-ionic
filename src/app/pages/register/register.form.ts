@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  findAddressNumber,
+  findCity,
+  findCountry,
+  findState,
+  findStreet,
+  findZipCode,
+} from 'utiles/address-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +38,7 @@ export class RegisterForm {
         // Address Information
         address: ['', [Validators.required]],
         number: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        street: ['', [Validators.required]],
         city: ['', [Validators.required]],
         country: ['', [Validators.required]],
         state: ['', [Validators.required]],
@@ -39,10 +48,30 @@ export class RegisterForm {
     );
   }
 
-  private passwordMatchValidator(group: FormGroup) {
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.form.get(fieldName);
+    return !!field && field.invalid && (field.dirty || field.touched);
+  }
+
+  passwordMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
 
     return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  setAddress(place: any) {
+    const addressCompArray = place.address_components;
+    this.form
+      ?.get('address')
+      ?.setValue(
+        `${findAddressNumber(addressCompArray)} ${findStreet(addressCompArray)}`
+      );
+    this.form?.get('number')?.setValue(findAddressNumber(addressCompArray));
+    this.form?.get('street')?.setValue(findStreet(addressCompArray));
+    this.form?.get('city')?.setValue(findCity(addressCompArray));
+    this.form?.get('state')?.setValue(findState(addressCompArray));
+    this.form?.get('country')?.setValue(findCountry(addressCompArray));
+    this.form?.get('zipCode')?.setValue(findZipCode(addressCompArray));
   }
 }

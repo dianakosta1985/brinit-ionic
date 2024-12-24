@@ -1,15 +1,14 @@
 <ion-content [fullscreen]="true">
   <div class="flex-center">
-    <form [formGroup]="form">
+    <form [formGroup]="loginForm.form" (ngSubmit)="login()">
       <ion-card>
         <ion-card-header>
           <ion-card-title>Login</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
-          <ion-item
-            [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched"
-          >
+          <!-- Email Field -->
+          <ion-item [class.invalid]="loginForm.isFieldValid('email')">
             <ion-input
               type="email"
               placeholder="Email"
@@ -18,17 +17,19 @@
           </ion-item>
           <ion-text
             color="danger"
-            *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']"
-            >Email is required</ion-text
+            *ngIf="loginForm.isTouchedOrDirty('email') && loginForm.form.get('email')?.errors?.['required']"
           >
+            Email is required.
+          </ion-text>
           <ion-text
             color="danger"
-            *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']"
-            >Please enter a valid email.</ion-text
+            *ngIf="loginForm.form.get('email')?.errors?.['email']"
           >
-          <ion-item
-            [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched"
-          >
+            Please enter a valid email.
+          </ion-text>
+
+          <!-- Password Field -->
+          <ion-item [class.invalid]="loginForm.isFieldValid('password')">
             <ion-input
               type="password"
               placeholder="Password"
@@ -37,26 +38,30 @@
           </ion-item>
           <ion-text
             color="danger"
-            *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"
-            >Password is required</ion-text
+            *ngIf="loginForm.isTouchedOrDirty('email') && loginForm.form.get('password')?.errors?.['required']"
           >
+            Password is required.
+          </ion-text>
           <ion-text
             color="danger"
-            *ngIf="form.get('password')?.errors?.['pattern'] && form.get('password')?.touched"
+            *ngIf="loginForm.isTouchedOrDirty('email') &&  loginForm.form.get('password')?.errors?.['pattern']"
           >
             Password must contain at least one letter and one number.
           </ion-text>
+
+          <!-- Buttons -->
           <ion-button
             class="login-button"
-            (click)="login()"
-            [disabled]="form.invalid"
-            >Login</ion-button
+            type="submit"
+            [disabled]="loginForm.form.invalid"
           >
+            Login
+          </ion-button>
           <ion-button
             fill="clear"
             color="dark"
             (click)="forgotEmailPassword()"
-            [disabled]="!form.get('email')?.value"
+            [disabled]="!loginForm.form.valid"
           >
             Forgot password?
           </ion-button>

@@ -11,21 +11,9 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 
 export class LoginPageForm {
-  constructor(private fb: FormBuilder) {}
-
-  asyncEmailValidator(
-    control: AbstractControl
-  ): Observable<ValidationErrors | null> {
-    return of(control.value).pipe(
-      delay(500), // Simulate async call
-      map((value) =>
-        value === 'test@example.com' ? { emailTaken: true } : null
-      )
-    );
-  }
-
-  createForm(): FormGroup {
-    return this.fb.group({
+  form: FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
       email: [
         '',
         [Validators.required, Validators.email],
@@ -39,5 +27,26 @@ export class LoginPageForm {
         ],
       ],
     });
+  }
+
+  asyncEmailValidator(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    return of(control.value).pipe(
+      delay(500), // Simulate async call
+      map((value) =>
+        value === 'test@example.com' ? { emailTaken: true } : null
+      )
+    );
+  }
+
+  isFieldValid(field: string): boolean | undefined {
+    const control = this.form.get(field);
+    return control?.invalid && control?.touched;
+  }
+
+  isTouchedOrDirty(field: string): boolean | undefined {
+    const control = this.form.get(field);
+    return control?.touched || control?.dirty;
   }
 }
