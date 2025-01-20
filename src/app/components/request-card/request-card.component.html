@@ -12,7 +12,7 @@
       <!-- Left Column - Image -->
       <ion-col size="4" class="image-col">
         <div class="image-container">
-          <ion-img src="{{ request.image }}" alt="{{ request.name }}"></ion-img>
+          <ion-img src="{{ request.product_images }}"></ion-img>
         </div>
       </ion-col>
 
@@ -20,9 +20,9 @@
       <ion-col size="8" class="content-col">
         <ion-card-header>
           <ion-card-title class="request-name">{{
-            request.name
+            request.product_name
           }}</ion-card-title>
-          <div class="delivery-date">
+          <!-- <div class="delivery-date">
             <ion-icon
               *ngIf="request.status === 'new'"
               name="add-circle-outline"
@@ -51,27 +51,27 @@
                 request.deliveryDate
               }}</b>
             </ion-text>
-          </div>
+          </div> -->
         </ion-card-header>
 
         <ion-card-content>
-          <ion-row class="info-row">
+          <!-- <ion-row class="info-row">
             <ion-col size="12">
               <ion-text
                 >Category: <b>{{ request.category }}</b></ion-text
               >
             </ion-col>
-          </ion-row>
+          </ion-row> -->
 
           <ion-row class="info-row">
             <ion-col size="12">
               <div class="price-tip-container">
                 <ion-text
-                  >Price: <b>{{ request.price }}</b></ion-text
+                  >Price: <b>{{ request.product_price }}$</b></ion-text
                 >
                 <span class="separator">•</span>
                 <ion-text
-                  >Tip: <b>{{ request.tipPercentage }}</b></ion-text
+                  >Tip: <b>{{ request.tip }}%</b></ion-text
                 >
               </div>
             </ion-col>
@@ -88,7 +88,8 @@
           <ion-row class="info-row">
             <ion-col size="12">
               <ion-text
-                >Origin From: <b>{{ request.origin }}</b></ion-text
+                >Origin From: <b>{{ request.from_country }}</b
+                >, <b>{{ request.from_state }}</b></ion-text
               >
             </ion-col>
           </ion-row>
@@ -96,7 +97,8 @@
           <ion-row class="info-row">
             <ion-col size="12">
               <ion-text
-                >Delivery To: <b>{{ request.delivery }}</b></ion-text
+                >Delivery To: <b>{{ request.to_country }}</b
+                >, <b>{{ request.to_state }}</b></ion-text
               >
             </ion-col>
           </ion-row>

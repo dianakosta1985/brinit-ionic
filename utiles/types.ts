@@ -13,11 +13,17 @@ export interface Request {
   category: string;
   currency: string;
   price: number;
-  tipPercentage: number;
+  tip: number;
+  product_id: string;
+  product_name: string;
+  product_price: number;
+  product_images: string;
   quantity: number;
-  origin: string;
-  delivery: string;
-  deliveryDate: string;
+  from_country: string;
+  to_country: string;
+  from_state: string;
+  to_state: string;
+  deliveryDate?: string;
   image: string;
 }
 

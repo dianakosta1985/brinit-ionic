@@ -17,4 +17,8 @@ export const AppInitialState: AppState = {
     isRegistered: false,
     isRegistring: false,
   },
+  requests: {
+    requestsData: [],
+    error: null,
+  },
 };

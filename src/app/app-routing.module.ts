@@ -14,7 +14,7 @@ const routes: Routes = [
       import('./pages/my-requests/my-requests.module').then(
         (m) => m.MyRequestsPageModule
       ),
-    canLoad: [AuthGuard],
+    //canLoad: [AuthGuard], // return it back when the current user logic will be completed
   },
   {
     path: 'pages/my-offers',
@@ -22,13 +22,8 @@ const routes: Routes = [
       import('./pages/my-offers/my-offers.module').then(
         (m) => m.MyOffersPageModule
       ),
-    canLoad: [AuthGuard],
+    //canLoad: [AuthGuard], // return it back when the current user logic will be completed
   },
-  // {
-  //   path: 'folder/:id',
-  //   loadChildren: () =>
-  //     import('./folder/folder.module').then((m) => m.FolderPageModule),
-  // },
   {
     path: 'loader',
     loadChildren: () =>

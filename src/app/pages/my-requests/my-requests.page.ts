@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { data } from '../../../../api/dummyDate';
+import { Component, OnInit, Input } from '@angular/core';
 import { Request } from '../../../../utiles/types';
 import { Router } from '@angular/router';
+import { map, Observable, startWith, tap } from 'rxjs';
+import { AppState } from 'src/store/AppState';
+import { Store } from '@ngrx/store';
+import { loadRequests } from 'src/store/requests/requests.actions';
 
 @Component({
   selector: 'app-my-requests',
@@ -9,12 +12,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-requests.page.scss'],
 })
 export class MyRequestsPage implements OnInit {
-  @Input() requestData: Request[] = [];
+  requestData$!: Observable<Request[]>;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store<AppState>) {
+    this.requestData$ = this.store.select('requests').pipe(
+      map((state: any) => state?.requestsData || []), // Handle null or undefined states
+      tap((requests) => console.log('Mapped Requests:', requests)) // Debugging log
+    );
+  }
 
   ngOnInit() {
-    this.requestData = [...(data.requestsData as Request[])];
+    this.store.dispatch(loadRequests());
   }
 
   goToCreateRequest() {

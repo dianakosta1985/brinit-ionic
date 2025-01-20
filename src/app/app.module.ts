@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppStoreModule } from 'src/store/AppStoreModule';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoadingComponent } from './components/loading/loading.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, LoadingComponent],
@@ -16,6 +17,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     ...AppStoreModule,
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
   ],

@@ -11,7 +11,6 @@ import {
   recoverPasswordFail,
   recoverPasswordSuccess,
 } from './login.actions';
-import { User } from 'src/app/model/user/User';
 
 @Injectable()
 export class LoginEffects {

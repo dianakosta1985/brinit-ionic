@@ -7,8 +7,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <app-request-card *ngFor="let request of requestData" [request]="request">
+<ion-content class="flex-center" [fullscreen]="true">
+  <app-request-card
+    *ngFor="let request of requestData$ | async"
+    [request]="request"
+  >
   </app-request-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
