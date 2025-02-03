@@ -7,8 +7,8 @@ export interface CountryStates {
   [key: string]: State[];
 }
 export interface Request {
-  id: number;
-  status: RequestStatus;
+  id: string;
+  is_active: boolean;
   name: string;
   category: string;
   currency: string;

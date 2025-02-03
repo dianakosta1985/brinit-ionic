@@ -14,4 +14,8 @@ export class RequestsService {
   fetchRequests(): Observable<Request[]> {
     return this.http.get<any>(this.apiUrl);
   }
+
+  patchRequest(requestId: string, body: Partial<Request>): Observable<Request> {
+    return this.http.patch<any>(`${this.apiUrl}/${requestId}`, body);
+  }
 }

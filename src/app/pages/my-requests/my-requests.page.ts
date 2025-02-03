@@ -16,7 +16,7 @@ export class MyRequestsPage implements OnInit {
 
   constructor(private router: Router, private store: Store<AppState>) {
     this.requestData$ = this.store.select('requests').pipe(
-      map((state: any) => state?.requestsData || []), // Handle null or undefined states
+      map((state: any) => state?.requestsLst || []), // Handle null or undefined states
       tap((requests) => console.log('Mapped Requests:', requests)) // Debugging log
     );
   }

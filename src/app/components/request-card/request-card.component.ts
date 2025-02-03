@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Request } from '../../../../utiles/types';
+import { AppState } from 'src/store/AppState';
+import { Store } from '@ngrx/store';
+import { deleteRequest } from 'src/store/requests/requests.actions';
 
 @Component({
   selector: 'app-request-card',
@@ -8,12 +11,22 @@ import { Request } from '../../../../utiles/types';
 })
 export class RequestCardComponent implements OnInit {
   @Input() request!: Request;
+  @Input() showModal: boolean = false;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {}
 
-  deleteItem() {
-    console.log('deleteItem');
+  openDeleteModal() {
+    this.showModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showModal = false;
+  }
+
+  deleteRequest() {
+    this.store.dispatch(deleteRequest({ requestId: this.request.id }));
+    this.showModal = false;
   }
 }
