@@ -26,6 +26,35 @@
           <!-- Form Fields - Full width on mobile, 8 columns on desktop -->
           <ion-col size="12" size-md="8" class="content-col">
             <ion-list>
+              <ion-searchbar
+                [debounce]="300"
+                placeholder="Search for products..."
+                (ionInput)="onSearchChange($event)"
+              ></ion-searchbar>
+
+              <!-- List of filtered products -->
+              <!-- <ion-modal>
+                <li *ngFor="let product of productsData$ | async">
+                  <ul>
+                    {{ product.name }}
+                  </ul>
+                </li>
+              </ion-modal> -->
+
+              <ion-item>
+                <ion-select (ionChange)="onProductChange($event)">
+                  <ion-select-option
+                    *ngFor="let product of productsData$ | async"
+                    [value]="product"
+                  >
+                    {{ product.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <!-- <ion-item *ngIf="productsData$ | async">
+                    <ion-label>No products found</ion-label>
+                  </ion-item> -->
               <ion-item>
                 <ion-input
                   label="Item Name"

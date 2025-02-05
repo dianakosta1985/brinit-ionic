@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Request } from '../../../../utiles/types';
 import { AppState } from 'src/store/AppState';
 import { Store } from '@ngrx/store';
-import { deleteRequest } from 'src/store/requests/requests.actions';
+import { showModal } from 'src/store/confirmModal/modal.actions';
 
 @Component({
   selector: 'app-request-card',
@@ -11,22 +11,19 @@ import { deleteRequest } from 'src/store/requests/requests.actions';
 })
 export class RequestCardComponent implements OnInit {
   @Input() request!: Request;
-  @Input() showModal: boolean = false;
+  @Output() deleteRequest = new EventEmitter<string>();
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {}
 
   openDeleteModal() {
-    this.showModal = true;
+    //this.showModal = true;
+    this.store.dispatch(showModal());
+    this.deleteRequest.emit(this.request.id);
   }
 
-  closeDeleteModal() {
-    this.showModal = false;
-  }
-
-  deleteRequest() {
-    this.store.dispatch(deleteRequest({ requestId: this.request.id }));
-    this.showModal = false;
-  }
+  // closeDeleteModal() {
+  //   this.showModal = false;
+  // }
 }

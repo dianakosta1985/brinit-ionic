@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { map, Observable, of, tap } from 'rxjs';
+import { AppState } from 'src/store/AppState';
+import { loadProducts } from 'src/store/products/products.actions';
+import { Product } from 'utiles/types';
 
 @Component({
   selector: 'app-create-request',
@@ -12,7 +17,17 @@ export class CreateRequestPage implements OnInit {
   imagePreview: string | null = null;
   minDate: string = new Date().toISOString();
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  productsData$: any;
+  filteredProducts: Observable<string[]> = of([]);
+  selectedProduct: string = '';
+  price: number | null = null;
+  image: string | null = null;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     this.requestForm = this.fb.group({
       name: ['', [Validators.required]],
       category: ['', [Validators.required]],
@@ -27,9 +42,19 @@ export class CreateRequestPage implements OnInit {
       deliveryDate: [new Date().toISOString(), [Validators.required]],
       image: [''],
     });
+
+    // this.productsData$ = this.store.select('products').pipe(
+    //   map((state: any) => state?.requestsLst || []), // Handle null or undefined states
+    //   tap((products) => console.log('Mapped Products:', products)) // Debugging log
+    // );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(loadProducts());
+    this.productsData$ = this.store.select(
+      (state) => state.products.productsLst
+    );
+  }
 
   formatDate(date: string): string {
     return new Date(date).toLocaleDateString();
@@ -51,4 +76,8 @@ export class CreateRequestPage implements OnInit {
       this.router.navigate(['/pages/my-requests']);
     }
   }
+
+  onSearchChange(e: any) {}
+
+  onProductChange(e: any) {}
 }

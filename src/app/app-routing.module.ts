@@ -47,7 +47,7 @@ const routes: Routes = [
       import('./pages/create-request/create-request.module').then(
         (m) => m.CreateRequestPageModule
       ),
-    canLoad: [AuthGuard],
+    // canLoad: [AuthGuard], // return it back when the current user logic will be completed
   },
 ];
 

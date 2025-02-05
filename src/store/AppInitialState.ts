@@ -4,6 +4,9 @@ export const AppInitialState: AppState = {
   loading: {
     show: false,
   },
+  modal: {
+    showModal: false,
+  },
   login: {
     error: null,
     isRecoveredPassword: false,
@@ -19,6 +22,10 @@ export const AppInitialState: AppState = {
   },
   requests: {
     requestsLst: [],
+    error: null,
+  },
+  products: {
+    productsLst: [],
     error: null,
   },
 };

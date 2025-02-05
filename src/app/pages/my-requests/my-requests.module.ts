@@ -8,6 +8,7 @@ import { MyRequestsPageRoutingModule } from './my-requests-routing.module';
 
 import { MyRequestsPage } from './my-requests.page';
 import { RequestCardModule } from 'src/app/components/request-card/request-card.module';
+import { ConfirmationModalComponent } from 'src/app/components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { RequestCardModule } from 'src/app/components/request-card/request-card.
     MyRequestsPageRoutingModule,
     RequestCardModule,
   ],
-  declarations: [MyRequestsPage],
+  declarations: [MyRequestsPage, ConfirmationModalComponent],
 })
 export class MyRequestsPageModule {}

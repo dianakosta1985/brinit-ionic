@@ -1,28 +1,29 @@
-<ion-backdrop (click)="onCancel()">X</ion-backdrop>
-<div class="modal-container">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ title }}</ion-card-title>
-      <ion-button
-        fill="clear"
-        size="small"
-        color="dark"
-        (click)="onCancel()"
-        class="close-btn"
-      >
-        X
-      </ion-button>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ message }}</p>
-    </ion-card-content>
-    <ion-footer>
-      <ion-button expand="block" color="danger" (click)="onConfirm()">
-        Confirm
-      </ion-button>
-      <ion-button expand="block" color="medium" (click)="onCancel()">
-        Cancel
-      </ion-button>
-    </ion-footer>
-  </ion-card>
+<div *ngIf="isVisible$ | async" class="modal-overlay">
+  <div class="modal-container">
+    <ion-card>
+      <ion-card-header class="modal-header">
+        <ion-card-title>{{ title }}</ion-card-title>
+        <ion-button
+          fill="clear"
+          size="small"
+          color="dark"
+          (click)="onCancel()"
+          class="close-btn"
+        >
+          X
+        </ion-button>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ message }}</p>
+      </ion-card-content>
+      <ion-footer>
+        <ion-button expand="block" color="danger" (click)="onConfirm()">
+          Confirm
+        </ion-button>
+        <ion-button expand="block" color="medium" (click)="onCancel()">
+          Cancel
+        </ion-button>
+      </ion-footer>
+    </ion-card>
+  </div>
 </div>

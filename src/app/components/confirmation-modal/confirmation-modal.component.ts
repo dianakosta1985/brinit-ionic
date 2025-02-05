@@ -6,7 +6,9 @@ import {
   EventEmitter,
   ViewChild,
 } from '@angular/core';
-import { IonModal } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { ModalState } from 'src/store/confirmModal/modalState';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -19,8 +21,11 @@ export class ConfirmationModalComponent implements OnInit {
 
   @Output() confirmed = new EventEmitter<void>();
   @Output() cancelled = new EventEmitter<void>();
+  isVisible$: Observable<boolean>;
 
-  constructor() {}
+  constructor(private store: Store<{ modal: ModalState }>) {
+    this.isVisible$ = this.store.select((state) => state.modal.showModal);
+  }
 
   ngOnInit() {}
 

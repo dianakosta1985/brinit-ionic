@@ -33,3 +33,12 @@ export interface Offer {
   fromState: string;
   toState: string;
 }
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  images: string; // TODO array
+  created_at: string;
+  update_at: string;
+}

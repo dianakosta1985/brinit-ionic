@@ -106,13 +106,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <app-confirmation-modal
-    *ngIf="showModal"
-    [title]="'Delete Confirmation'"
-    [message]="'Are you sure you want to delete this request?'"
-    (confirmed)="deleteRequest()"
-    (cancelled)="closeDeleteModal()"
-  >
-  </app-confirmation-modal>
 </ion-card>

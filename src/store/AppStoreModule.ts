@@ -7,15 +7,21 @@ import { registerReducer } from './register/register.reducers';
 import { RegisterEffects } from './register/register.effects';
 import { requestsReducer } from './requests/requests.reducer';
 import { RequestsEffects } from './requests/requests.effects';
+import { modalReducer } from './confirmModal/modal.reducers';
+import { ProductsEffects } from './products/products.effects';
+import { productsReducer } from './products/products.reducer';
 
 export const AppStoreModule = [
   StoreModule.forRoot([]),
   StoreModule.forFeature('loading', loadingReducer),
   StoreModule.forFeature('login', loginReducer),
+  StoreModule.forFeature('modal', modalReducer),
   StoreModule.forFeature('register', registerReducer),
   StoreModule.forFeature('requests', requestsReducer),
+  StoreModule.forFeature('products', productsReducer),
   EffectsModule.forRoot([]),
   EffectsModule.forFeature([LoginEffects]),
   EffectsModule.forFeature([RegisterEffects]),
   EffectsModule.forFeature([RequestsEffects]),
+  EffectsModule.forFeature([ProductsEffects]),
 ];
