@@ -42,11 +42,6 @@ export class CreateRequestPage implements OnInit {
       deliveryDate: [new Date().toISOString(), [Validators.required]],
       image: [''],
     });
-
-    // this.productsData$ = this.store.select('products').pipe(
-    //   map((state: any) => state?.requestsLst || []), // Handle null or undefined states
-    //   tap((products) => console.log('Mapped Products:', products)) // Debugging log
-    // );
   }
 
   ngOnInit() {
@@ -77,7 +72,12 @@ export class CreateRequestPage implements OnInit {
     }
   }
 
-  onSearchChange(e: any) {}
-
-  onProductChange(e: any) {}
+  onProductSelection(e: any) {
+    const selectedProduct = e.target.value;
+    this.requestForm.patchValue({
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      image: selectedProduct.images,
+    });
+  }
 }
