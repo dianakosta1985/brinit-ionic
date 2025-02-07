@@ -18,4 +18,8 @@ export class RequestsService {
   patchRequest(requestId: string, body: Partial<Request>): Observable<Request> {
     return this.http.patch<any>(`${this.apiUrl}/${requestId}`, body);
   }
+
+  postRequest(body: Request): Observable<Request> {
+    return this.http.post<Request>(this.apiUrl, body);
+  }
 }

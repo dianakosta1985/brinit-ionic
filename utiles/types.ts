@@ -42,3 +42,17 @@ export interface Product {
   created_at: string;
   update_at: string;
 }
+
+export interface Country {
+  id: number;
+  is_active: true;
+  name: string;
+  code: string;
+}
+
+export interface StateOrProvince {
+  id: number;
+  is_active: true;
+  name: string;
+  country_id: number;
+}

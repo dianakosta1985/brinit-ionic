@@ -3,6 +3,9 @@ import {
   loadRequestsSuccess,
   loadRequestsFailure,
   deleteRequestSucess,
+  deleteRequestFailure,
+  createRequestFailure,
+  createRequestSucess,
 } from './requests.actions';
 import { AppInitialState } from '../AppInitialState';
 import { RequestsState } from './requestsState';
@@ -22,13 +25,21 @@ export const reducer = createReducer(
     ...state,
     error: state.error,
   })),
+  on(createRequestSucess, (state, { newRequest }) => ({
+    ...state,
+    requestsLst: [...state.requestsLst, newRequest],
+  })),
+  on(createRequestFailure, (state) => ({
+    ...state,
+    error: state.error,
+  })),
   on(deleteRequestSucess, (state, { requestId }) => ({
     ...state,
     requestsLst: state.requestsLst.filter(
       (request: Request) => request.id !== requestId
     ),
   })),
-  on(deleteRequestSucess, (state) => ({
+  on(deleteRequestFailure, (state) => ({
     ...state,
     error: state.error,
   }))

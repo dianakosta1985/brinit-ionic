@@ -28,9 +28,11 @@
             <ion-list>
               <ion-item>
                 <ion-select
+                  label="Select an exist product"
                   aria-label="Product"
+                  formControlName="product"
                   interface="popover"
-                  placeholder="Select an exist product"
+                  label-placement="floating"
                   (ionChange)="onProductSelection($event)"
                 >
                   <ion-select-option
@@ -49,6 +51,7 @@
                 <ion-input
                   label="Item Name"
                   formControlName="name"
+                  interface="popover"
                   label-placement="floating"
                   type="text"
                 ></ion-input>
@@ -60,10 +63,11 @@
                 </ion-note>
               </ion-item>
 
-              <ion-item>
+              <!-- <ion-item>
                 <ion-select
                   label="Category"
                   formControlName="category"
+                  interface="popover"
                   label-placement="floating"
                 >
                   <ion-select-option value="electronics"
@@ -73,7 +77,6 @@
                     >Clothing</ion-select-option
                   >
                   <ion-select-option value="food">Food</ion-select-option>
-                  <!-- Add more categories -->
                 </ion-select>
                 <ion-note
                   slot="error"
@@ -81,14 +84,15 @@
                 >
                   Category is required
                 </ion-note>
-              </ion-item>
+              </ion-item> -->
 
               <ion-row>
-                <ion-col size="6">
+                <ion-col size="4">
                   <ion-item>
                     <ion-input
                       label="Price"
                       formControlName="price"
+                      interface="popover"
                       type="number"
                       label-placement="floating"
                     ></ion-input>
@@ -100,16 +104,17 @@
                     </ion-note>
                   </ion-item>
                 </ion-col>
-                <ion-col size="6">
+                <ion-col size="4">
                   <ion-item>
                     <ion-select
                       label="Tip %"
                       formControlName="tipPercentage"
                       label-placement="floating"
+                      interface="popover"
                     >
-                      <ion-select-option value="5">5%</ion-select-option>
                       <ion-select-option value="10">10%</ion-select-option>
                       <ion-select-option value="15">15%</ion-select-option>
+                      <ion-select-option value="10">20%</ion-select-option>
                       <ion-select-option value="25">25%</ion-select-option>
                     </ion-select>
                     <ion-note
@@ -120,61 +125,122 @@
                     </ion-note>
                   </ion-item>
                 </ion-col>
+
+                <ion-col size="4">
+                  <ion-item>
+                    <ion-select
+                      label="Quantity (1-5)"
+                      formControlName="quantity"
+                      label-placement="floating"
+                      interface="popover"
+                    >
+                      <ion-select-option value="1">1</ion-select-option>
+                      <ion-select-option value="2">2</ion-select-option>
+                      <ion-select-option value="3">3</ion-select-option>
+                      <ion-select-option value="4">4</ion-select-option>
+                      <ion-select-option value="5">5</ion-select-option>
+                    </ion-select>
+                    <ion-note
+                      slot="error"
+                      *ngIf="requestForm.get('quantity')?.touched && requestForm.get('quantity')?.errors?.['required']"
+                    >
+                      Quantity is required
+                    </ion-note>
+                  </ion-item>
+                </ion-col>
               </ion-row>
 
               <ion-item>
-                <ion-input
-                  label="Quantity (1-5)"
-                  formControlName="quantity"
-                  type="number"
-                  min="1"
-                  max="5"
-                  [attr.maxlength]="1"
-                ></ion-input>
+                <ion-select
+                  label="Origin Country"
+                  formControlName="originCountry"
+                  label-placement="floating"
+                  interface="popover"
+                  (ionChange)="onOriginCountryChange($event)"
+                >
+                  <ion-select-option
+                    *ngFor="let country of countries"
+                    [value]="country.id"
+                  >
+                    {{ country.name }}
+                  </ion-select-option>
+                </ion-select>
                 <ion-note
                   slot="error"
-                  *ngIf="requestForm.get('quantity')?.touched && requestForm.get('quantity')?.errors?.['required']"
+                  *ngIf="requestForm.get('originCountry')?.touched && requestForm.get('originCountry')?.errors?.['required']"
                 >
-                  Quantity is required
-                </ion-note>
-                <ion-note
-                  slot="error"
-                  *ngIf="requestForm.get('quantity')?.touched && (requestForm.get('quantity')?.errors?.['min'] || requestForm.get('quantity')?.errors?.['max'])"
-                >
-                  Quantity must be between 1 and 5
+                  Origin is required
                 </ion-note>
               </ion-item>
 
-              <ion-item>
-                <ion-input
-                  label="Item origin From"
-                  formControlName="origin"
-                  type="text"
+              <ion-item *ngIf="StatesOrgOrProvince.length > 0">
+                <ion-select
+                  label="Origin State/Province"
                   label-placement="floating"
-                ></ion-input>
+                  interface="popover"
+                  formControlName="originState"
+                >
+                  <ion-select-option
+                    *ngFor="let state of StatesOrgOrProvince"
+                    [value]="state.id"
+                  >
+                    {{ state.name }}
+                  </ion-select-option>
+                </ion-select>
                 <ion-note
                   slot="error"
-                  *ngIf="requestForm.get('origin')?.touched && requestForm.get('origin')?.errors?.['required']"
+                  *ngIf="requestForm.get('originState')?.touched && requestForm.get('originState')?.errors?.['required']"
                 >
                   Origin is required
                 </ion-note>
               </ion-item>
 
               <ion-item>
-                <ion-input
-                  label="Delivery To"
-                  formControlName="delivery"
-                  type="text"
-                ></ion-input>
+                <ion-select
+                  label="Destination Country"
+                  formControlName="destCountry"
+                  label-placement="floating"
+                  interface="popover"
+                  (ionChange)="onDestCountryChange($event)"
+                >
+                  <ion-select-option
+                    *ngFor="let country of countries"
+                    [value]="country.id"
+                  >
+                    {{ country.name }}
+                  </ion-select-option>
+                </ion-select>
                 <ion-note
                   slot="error"
-                  *ngIf="requestForm.get('delivery')?.touched && requestForm.get('delivery')?.errors?.['required']"
+                  *ngIf="requestForm.get('destCountry')?.touched && requestForm.get('destCountry')?.errors?.['required']"
                 >
-                  Delivery location is required
+                  Destination is required
                 </ion-note>
               </ion-item>
 
-              <ion-item>
+              <ion-item *ngIf="StatesDestOrProvince.length > 0">
+                <ion-select
+                  label="Destination State/Province"
+                  label-placement="floating"
+                  interface="popover"
+                  formControlName="destState"
+                >
+                  <ion-select-option
+                    *ngFor="let state of StatesDestOrProvince"
+                    [value]="state.id"
+                  >
+                    {{ state.name }}
+                  </ion-select-option>
+                </ion-select>
+                <ion-note
+                  slot="error"
+                  *ngIf="requestForm.get('destState')?.touched && requestForm.get('destState')?.errors?.['required']"
+                >
+                  Destination is required
+                </ion-note>
+              </ion-item>
+
+              <!-- <ion-item>
                 <ion-label>Delivery Date</ion-label>
                 <div class="date-container">
                   <ion-datetime-button
@@ -200,7 +266,7 @@
                 >
                   Delivery date is required
                 </ion-note>
-              </ion-item>
+              </ion-item> -->
 
               <ion-button
                 expand="block"

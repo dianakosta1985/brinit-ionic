@@ -11,6 +11,21 @@ export const loadRequestsFailure = createAction(
   props<{ error: string }>()
 );
 
+export const createRequest = createAction(
+  '[Request] Create Request',
+  props<{ newRequest: any }>()
+);
+
+export const createRequestSucess = createAction(
+  '[Requests] Create Request Success',
+  props<{ newRequest: Request }>()
+);
+
+export const createRequestFailure = createAction(
+  '[Requests] Create Request Failure',
+  props<{ error: string }>()
+);
+
 export const deleteRequest = createAction(
   '[Request] Delete Request',
   props<{ requestId: string }>() // Payload includes the ID of the request to delete
