@@ -14,4 +14,8 @@ export class ProductsService {
   fetchProducts(): Observable<Product[]> {
     return this.http.get<any>(this.apiUrl);
   }
+
+  postProduct(body: Product): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, body);
+  }
 }

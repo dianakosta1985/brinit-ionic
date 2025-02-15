@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, concatMap, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import {
   loadRequests,
   loadRequestsSuccess,
@@ -14,12 +14,17 @@ import {
 } from './requests.actions';
 import { RequestsService } from 'src/app/services/requests/requests.service';
 import { show } from '../loading/loading.actions';
+import { Router } from '@angular/router';
+import { AppState } from '../AppState';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class RequestsEffects {
   constructor(
     private actions$: Actions,
-    private requestsService: RequestsService
+    private requestsService: RequestsService,
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   loadRequests$ = createEffect(() =>
@@ -54,6 +59,22 @@ export class RequestsEffects {
         )
       )
     )
+  );
+
+  navigateAndLoadRequests$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(createRequestSucess), // Wait for `createRequestSuccess` to be dispatched
+        tap(() => {
+          // Navigate after request is successful
+          this.router.navigate(['/pages/my-requests']);
+        }),
+        switchMap(() => {
+          // Dispatch action to load requests
+          return of(this.store.dispatch(loadRequests()));
+        })
+      ),
+    { dispatch: false } // We are not dispatching another action from this effect
   );
 
   // reloadRequests$ = createEffect(() =>

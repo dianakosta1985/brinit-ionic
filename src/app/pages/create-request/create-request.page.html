@@ -15,7 +15,7 @@
           <!-- Image Upload - Full width on mobile, 4 columns on desktop -->
           <ion-col size="12" size-md="4" class="image-col">
             <div class="image-container">
-              <ion-img [src]="'assets/images/add-image.svg'"></ion-img>
+              <ion-img [src]="newImage"></ion-img>
               <ion-button fill="clear" (click)="uploadImage()">
                 <ion-icon name="camera-outline"></ion-icon>
                 Upload Image
@@ -26,27 +26,31 @@
           <!-- Form Fields - Full width on mobile, 8 columns on desktop -->
           <ion-col size="12" size-md="8" class="content-col">
             <ion-list>
-              <ion-item>
-                <ion-select
-                  label="Select an exist product"
-                  aria-label="Product"
-                  formControlName="product"
-                  interface="popover"
-                  label-placement="floating"
-                  (ionChange)="onProductSelection($event)"
+              <ion-searchbar
+                #searchBar
+                placeholder="Search for the product if you already ask for in the past"
+                [debounce]="1000"
+                (ionInput)="filterProduct($event)"
+                (ionClear)="onSearchClear()"
+              ></ion-searchbar>
+              <dl class="overlay-container" *ngIf="filteredProducts.length > 0">
+                <dt
+                  lines="none"
+                  *ngFor="let filterPro of filteredProducts"
+                  (click)="onProductSelection(filterPro)"
                 >
-                  <ion-select-option
-                    *ngFor="let product of productsData$ | async"
-                    [value]="product"
-                  >
-                    {{ product.name }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
+                  <div class="overlay">
+                    <img
+                      [src]="filterPro.images"
+                      alt="filterPro.name"
+                      width="20"
+                      height="20"
+                    />
+                    <div class="product">{{ filterPro.name }}</div>
+                  </div>
+                </dt>
+              </dl>
 
-              <!-- <ion-item *ngIf="productsData$ | async">
-                    <ion-label>No products found</ion-label>
-                  </ion-item> -->
               <ion-item>
                 <ion-input
                   label="Item Name"

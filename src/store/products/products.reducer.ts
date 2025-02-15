@@ -3,6 +3,8 @@ import {
   loadProducts,
   loadProductsSuccess,
   loadProductsFailure,
+  createProductSucess,
+  createProductFailure,
 } from './products.actions';
 import { AppInitialState } from '../AppInitialState';
 import { ProductsState } from './productsState';
@@ -17,6 +19,15 @@ export const reducer = createReducer(
     error: null,
   })),
   on(loadProductsFailure, (state) => ({
+    ...state,
+    error: state.error,
+  })),
+  on(createProductSucess, (state, { newProduct }) => ({
+    ...state,
+    productsLst: [...state.productsLst, newProduct],
+    newProduct,
+  })),
+  on(createProductFailure, (state) => ({
     ...state,
     error: state.error,
   }))

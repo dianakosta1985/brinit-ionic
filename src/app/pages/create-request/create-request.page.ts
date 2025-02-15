@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonSearchbar, IonSelect, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
-import { map, Observable, of, tap } from 'rxjs';
+import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { AppState } from 'src/store/AppState';
-import { loadProducts } from 'src/store/products/products.actions';
+import {
+  createProduct,
+  loadProducts,
+} from 'src/store/products/products.actions';
 import { createRequest } from 'src/store/requests/requests.actions';
 import { LocationService } from 'src/app/services/location/location.service';
-import { Country, StateOrProvince } from 'utiles/types';
-import { RequestsService } from 'src/app/services/requests/requests.service';
+import { Country, Product, StateOrProvince } from 'utiles/types';
 
 @Component({
   selector: 'app-create-request',
@@ -16,12 +19,16 @@ import { RequestsService } from 'src/app/services/requests/requests.service';
   styleUrls: ['./create-request.page.scss'],
 })
 export class CreateRequestPage implements OnInit {
+  @ViewChild('searchBar', { static: false }) searchBar!: IonSearchbar;
   requestForm: FormGroup;
   imagePreview: string | null = null;
   minDate: string = new Date().toISOString();
+  newImage: string = 'assets/images/add-image.svg';
 
-  productsData$: any;
-  filteredProducts: Observable<string[]> = of([]);
+  productsData$!: Observable<Product[]>;
+  newProductData!: Product;
+  newProductData$!: any;
+  filteredProducts: Product[] = [];
   selectedProduct: string = '';
   price: number | null = null;
   image: string | null = null;
@@ -34,7 +41,7 @@ export class CreateRequestPage implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private store: Store<AppState>,
-    private locationService: LocationService
+    private locationService: LocationService // private modalCtrl: ModalController
   ) {
     this.requestForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -61,6 +68,28 @@ export class CreateRequestPage implements OnInit {
     );
     this.fetchCountries();
   }
+  onSearchClear() {
+    this.filteredProducts = [];
+    this.searchBar.value = '';
+  }
+
+  filterProduct(e: Event) {
+    const target = e.target as HTMLIonSearchbarElement;
+    const query = target.value?.toLowerCase() || '';
+    if (query === '') {
+      this.filteredProducts = [];
+    } else {
+      this.productsData$.subscribe((data: Product[]) => {
+        this.filteredProducts = data.filter((p: Product) =>
+          p.name.toLowerCase().includes(query)
+        );
+      });
+    }
+  }
+
+  // cancelSelection() {
+  //   this.modalCtrl.dismiss();
+  // }
 
   fetchCountries() {
     this.locationService.fetchCountries().subscribe((data: Country[]) => {
@@ -105,12 +134,9 @@ export class CreateRequestPage implements OnInit {
 
   createRequest() {
     if (this.requestForm.valid) {
-      // const formData = {
-      //   ...this.formatDate,
-      // };
-
-      const paload = {
-        product_id: this.requestForm.value.product.id,
+      let productId = this.requestForm.value.product.id || null;
+      const payload = {
+        // product_id: productExist,
         from_country: this.requestForm.value.originCountry,
         from_state: this.requestForm.value.originState,
         to_country: this.requestForm.value.destCountry,
@@ -121,18 +147,54 @@ export class CreateRequestPage implements OnInit {
         is_matched: false,
       };
 
-      this.store.dispatch(createRequest({ newRequest: paload }));
+      if (!productId) {
+        this.newProductData = {
+          name: this.requestForm.value.name,
+          price: this.requestForm.value.price,
+          images: this.newImage,
+        };
+        this.store.dispatch(createProduct({ newProduct: this.newProductData }));
+        this.newProductData$ = this.store.select(
+          (state) => state.products.newProduct
+        );
+        this.newProductData$
+          .pipe(
+            filter((pro): pro is Product => pro !== null && pro !== undefined), // Filter nulls
+            tap((pro: Product) => {
+              this.newProductData = pro;
+              //console.log('new Product', pro);
+            }),
+            tap((pro: Product) => {
+              this.store.dispatch(
+                createRequest({
+                  newRequest: {
+                    ...payload,
+                    product_id: pro.id,
+                  },
+                })
+              );
+            })
+          )
+          .subscribe();
+      } else {
+        this.store.dispatch(
+          createRequest({
+            newRequest: { ...payload, product_id: productId },
+          })
+        );
+      }
 
-      this.router.navigate(['/pages/my-requests']);
+      // this.router.navigate(['/pages/my-requests']);
     }
   }
 
-  onProductSelection(e: any) {
-    const selectedProduct = e.target.value;
+  onProductSelection(selectedProduct: any) {
     this.requestForm.patchValue({
       name: selectedProduct.name,
       price: selectedProduct.price,
       image: selectedProduct.images,
     });
+    this.newImage = selectedProduct.images;
+    this.onSearchClear();
   }
 }

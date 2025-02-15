@@ -35,12 +35,12 @@ export interface Offer {
 }
 
 export interface Product {
-  id: string;
+  id?: string;
   name: string;
   price: number;
   images: string; // TODO array
-  created_at: string;
-  update_at: string;
+  created_at?: string;
+  update_at?: string;
 }
 
 export interface Country {

@@ -25,6 +25,7 @@ export const AppInitialState: AppState = {
     error: null,
   },
   products: {
+    newProduct: null,
     productsLst: [],
     error: null,
   },

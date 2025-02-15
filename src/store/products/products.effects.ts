@@ -5,6 +5,9 @@ import {
   loadProducts,
   loadProductsFailure,
   loadProductsSuccess,
+  createProduct,
+  createProductSucess,
+  createProductFailure,
 } from './products.actions';
 import { ProductsService } from 'src/app/services/products/products.service';
 
@@ -28,6 +31,22 @@ export class ProductsEffects {
           catchError((error) => {
             console.error('Error fetching requests:', error);
             return of(loadProductsFailure({ error: error.message }));
+          })
+        )
+      )
+    )
+  );
+
+  createProducts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createProduct),
+      // tap(() => console.log('Action received: loadRequests')),
+      mergeMap((action) =>
+        this.productsService.postProduct(action.newProduct).pipe(
+          map((response) => createProductSucess({ newProduct: response })),
+          catchError((error) => {
+            console.error('Error fetching requests:', error);
+            return of(createProductFailure({ error: error.message }));
           })
         )
       )
