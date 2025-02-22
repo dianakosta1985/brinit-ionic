@@ -10,6 +10,8 @@ import { RequestsEffects } from './requests/requests.effects';
 import { modalReducer } from './confirmModal/modal.reducers';
 import { ProductsEffects } from './products/products.effects';
 import { productsReducer } from './products/products.reducer';
+import { OffersEffects } from './offers/offers.effects';
+import { offersReducer } from './offers/offers.reducer';
 
 export const AppStoreModule = [
   StoreModule.forRoot([]),
@@ -19,9 +21,11 @@ export const AppStoreModule = [
   StoreModule.forFeature('register', registerReducer),
   StoreModule.forFeature('requests', requestsReducer),
   StoreModule.forFeature('products', productsReducer),
+  StoreModule.forFeature('offers', offersReducer),
   EffectsModule.forRoot([]),
   EffectsModule.forFeature([LoginEffects]),
   EffectsModule.forFeature([RegisterEffects]),
   EffectsModule.forFeature([RequestsEffects]),
   EffectsModule.forFeature([ProductsEffects]),
+  EffectsModule.forFeature([OffersEffects]),
 ];

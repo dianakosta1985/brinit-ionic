@@ -4,6 +4,7 @@ import { LoginState } from './login/LoginState';
 import { RegisterState } from './register/RegisterState';
 import { RequestsState } from './requests/requestsState';
 import { ProductsState } from './products/productsState';
+import { OffersState } from './offers/offersState';
 export interface AppState {
   loading: LoadingState;
   modal: ModalState;
@@ -11,4 +12,5 @@ export interface AppState {
   register: RegisterState;
   requests: RequestsState;
   products: ProductsState;
+  offers: OffersState;
 }

@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { data } from '../../../../api/dummyDate';
-import { Offer } from 'utiles/types';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Country, Offer, StateOrProvince } from 'utiles/types';
+import { LocationService } from 'src/app/services/location/location.service';
+import { IonDatetime } from '@ionic/angular';
+import { createOffer } from 'src/store/offers/offers.actiions';
+import { Store } from '@ngrx/store';
+import { hide, show } from 'src/store/loading/loading.actions';
+import { AppState } from 'src/store/AppState';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-my-offers',
@@ -8,42 +14,90 @@ import { Offer } from 'utiles/types';
   styleUrls: ['./my-offers.page.scss'],
 })
 export class MyOffersPage implements OnInit {
-  offer: Offer = {
-    fromCountry: '',
-    fromState: '',
-    toCountry: '',
-    toState: '',
-  };
   showResults: boolean = false;
-  requests: any[] = []; // List of requests that will be shown in the app-request-cards
+  requests$: Observable<any>;
+  countries!: Country[];
+  StatesOrgOrProvince: StateOrProvince[] = [];
+  StatesDestOrProvince: StateOrProvince[] = [];
+  newOffer: Offer;
+  selectedCountry!: string;
 
   fromCountryStates: any[] = [];
   toCountryStates: any[] = [];
-  countries = data.countries;
-  countryStates = data.countryStates;
 
-  constructor() {}
+  isModalOpen = false;
+  selectedDate: string = '';
+  selectedDateFormatted: string = '';
+  deliveryDate: string = '';
 
-  onCountryChange(type: 'from' | 'to') {
-    if (type === 'from') {
-      this.fromCountryStates =
-        data.countryStates[
-          this.offer.fromCountry as unknown as keyof typeof data.countryStates
-        ] || [];
-      console.log(this.fromCountryStates);
-    } else {
-      this.toCountryStates =
-        data.countryStates[
-          this.offer.toCountry as unknown as keyof typeof data.countryStates
-        ] || [];
-    }
+  constructor(
+    private locationService: LocationService,
+    private store: Store<AppState>
+  ) {
+    this.newOffer = {
+      from_country: '',
+      to_country: '',
+      from_state: '',
+      to_state: '',
+      date_of_leaving: new Date(),
+    };
+    this.requests$ = this.store.select('offers').pipe(
+      map(
+        (state: any) =>
+          //created_offer: state?.created_offer,
+          state?.matched_requests
+      ) // Handle null or undefined states
+    );
   }
 
   // Method to trigger search and show the request cards
   searchRequest() {
     this.showResults = true;
-    this.requests = data.requestsData;
+    debugger;
+    // console.log(this.newOffer);
+    // this.store.dispatch(show());
+    this.store.dispatch(createOffer({ newOffer: this.newOffer }));
+    // this.store.dispatch(hide());
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetchCountries();
+  }
+
+  onDateChange(event: any) {
+    console.log('Selected Date:', event.detail.value);
+    this.newOffer.date_of_leaving = event.detail.value;
+  }
+
+  fetchCountries() {
+    this.locationService.fetchCountries().subscribe((data: Country[]) => {
+      this.countries = data;
+    });
+  }
+
+  onOriginCountryChange(event: any) {
+    this.selectedCountry = event.detail.value;
+    this.fetchOriginStates(this.selectedCountry);
+  }
+
+  onDestCountryChange(event: any) {
+    this.selectedCountry = event.detail.value;
+    this.fetchDestStates(this.selectedCountry);
+  }
+
+  fetchOriginStates(country_id: string) {
+    this.locationService
+      .fetchStateOrProvince(country_id)
+      .subscribe((data: StateOrProvince[]) => {
+        this.StatesOrgOrProvince = data;
+      });
+  }
+
+  fetchDestStates(country_id: string) {
+    this.locationService
+      .fetchStateOrProvince(country_id)
+      .subscribe((data: StateOrProvince[]) => {
+        this.StatesDestOrProvince = data;
+      });
+  }
 }

@@ -24,85 +24,83 @@
     <ion-list>
       <ion-item>
         <ion-select
-          label="From Country"
+          label="Origin Country"
           label-placement="floating"
-          [(ngModel)]="offer!.fromCountry"
-          (ionChange)="onCountryChange('from')"
           interface="popover"
+          [(ngModel)]="newOffer.from_country"
+          (ionChange)="onOriginCountryChange($event)"
         >
           <ion-select-option
             *ngFor="let country of countries"
-            [value]="country.code"
+            [value]="country.id"
           >
-            <ion-avatar slot="start">
-              <img
-                [src]="'assets/flags/' + country.code + '.png'"
-                alt="{{ country.name }}"
-              />
-            </ion-avatar>
             {{ country.name }}
           </ion-select-option>
         </ion-select>
       </ion-item>
 
-      <!-- From State Dropdown -->
-      <ion-item *ngIf="fromCountryStates.length">
+      <ion-item *ngIf="StatesOrgOrProvince.length > 0">
         <ion-select
-          label="From State"
+          label="Origin State/Province"
           label-placement="floating"
-          [(ngModel)]="offer!.fromState"
           interface="popover"
+          [(ngModel)]="newOffer.from_state"
         >
           <ion-select-option
-            *ngFor="let state of fromCountryStates"
-            [value]="state"
+            *ngFor="let state of StatesOrgOrProvince"
+            [value]="state.id"
           >
             {{ state.name }}
           </ion-select-option>
         </ion-select>
       </ion-item>
 
-      <!-- To Country Dropdown -->
       <ion-item>
         <ion-select
-          label="To Country"
+          label="Destination Country"
           label-placement="floating"
-          [(ngModel)]="offer!.toCountry"
-          (ionChange)="onCountryChange('to')"
           interface="popover"
+          [(ngModel)]="newOffer.to_country"
+          (ionChange)="onDestCountryChange($event)"
         >
           <ion-select-option
             *ngFor="let country of countries"
-            [value]="country.code"
+            [value]="country.id"
           >
-            <ion-avatar slot="start">
-              <img
-                [src]="'assets/flags/' + country.code + '.png'"
-                alt="{{ country.name }}"
-              />
-            </ion-avatar>
             {{ country.name }}
           </ion-select-option>
         </ion-select>
       </ion-item>
 
-      <!-- To State Dropdown -->
-      <ion-item *ngIf="toCountryStates.length">
+      <ion-item *ngIf="StatesDestOrProvince.length > 0">
         <ion-select
-          label="To State"
+          label="Destination State/Province"
           label-placement="floating"
-          [(ngModel)]="offer!.toState"
+          [(ngModel)]="newOffer.to_state"
           interface="popover"
         >
           <ion-select-option
-            *ngFor="let state of toCountryStates"
-            [value]="state"
+            *ngFor="let state of StatesDestOrProvince"
+            [value]="state.id"
           >
             {{ state.name }}
           </ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-label>Date of Leaving</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
 
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              id="datetime"
+              presentation="date"
+              (ionChange)="onDateChange($event)"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
       <!-- Search Button -->
       <ion-button expand="full" (click)="searchRequest()">Search</ion-button>
     </ion-list>
@@ -111,8 +109,8 @@
   <!-- List of app-request-cards (will be shown after search) -->
   <div *ngIf="showResults">
     <app-request-card
-      *ngFor="let request of requests"
-      [request]="request"
+      *ngFor="let req of requests$ | async"
+      [request]="req"
     ></app-request-card>
   </div>
 </ion-content>

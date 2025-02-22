@@ -29,4 +29,9 @@ export const AppInitialState: AppState = {
     productsLst: [],
     error: null,
   },
+  offers: {
+    created_offer: null,
+    matched_requests: [],
+    error: null,
+  },
 };

@@ -23,15 +23,15 @@ export interface Request {
   to_country: string;
   from_state: string;
   to_state: string;
-  deliveryDate?: string;
   image: string;
 }
 
 export interface Offer {
-  fromCountry: string;
-  toCountry: string;
-  fromState: string;
-  toState: string;
+  from_country: string;
+  to_country: string;
+  from_state: string;
+  to_state: string;
+  date_of_leaving: Date;
 }
 
 export interface Product {
